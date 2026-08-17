@@ -1,0 +1,2249 @@
+/* =============================================================================
+   AJAY'S AI — PREMIUM CHATBOT WIDGET
+   =============================================================================
+   Selection-only AI chatbot
+   No text input
+   No send button
+
+   FEATURES
+   - Compact content-based panel
+   - Light mode
+   - Dark/night mode
+   - Responsive mobile layout
+   - Cart integration styling
+   - Smooth animations
+   - Accessibility
+============================================================================= */
+
+
+/* =============================================================================
+   CSS VARIABLES
+============================================================================= */
+
+:root {
+
+  --ajai-coffee: #6f4831;
+  --ajai-espresso: #2b1b14;
+
+  --ajai-gold: #c89b4c;
+  --ajai-gold-light: #e3c07f;
+
+  --ajai-cream: #faf3e8;
+  --ajai-cream-2: #fffaf2;
+
+  --ajai-beige: #ede0cc;
+
+  --ajai-text: #1b1410;
+  --ajai-muted: #4a3a30;
+
+  --ajai-border: rgba(0, 0, 0, 0.08);
+
+  --ajai-success: #5fd66b;
+  --ajai-danger: #e0453f;
+
+  --ajai-shadow:
+    0 25px 60px rgba(43, 27, 20, 0.30),
+    0 8px 20px rgba(43, 27, 20, 0.12);
+
+}
+
+
+/* =============================================================================
+   FLOATING AI BUTTON
+============================================================================= */
+
+.ajai-fab {
+
+  position: fixed;
+
+  right: 22px;
+  bottom: 22px;
+
+  z-index: 9998;
+
+  width: 64px;
+  height: 64px;
+
+  padding: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--ajai-coffee),
+      var(--ajai-espresso)
+    );
+
+  color: #fff;
+
+  border: none;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 12px 30px rgba(43, 27, 20, 0.28),
+    0 4px 10px rgba(43, 27, 20, 0.12);
+
+  cursor: pointer;
+
+  font-family:
+    var(--font-body),
+    "Poppins",
+    sans-serif;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+
+}
+
+
+/* Hover */
+
+.ajai-fab:hover {
+
+  transform:
+    translateY(-4px)
+    scale(1.04);
+
+  box-shadow:
+    0 18px 38px rgba(43, 27, 20, 0.32),
+    0 5px 12px rgba(43, 27, 20, 0.15);
+
+}
+
+
+/* Active */
+
+.ajai-fab:active {
+
+  transform:
+    scale(0.95);
+
+}
+
+
+/* Hide FAB while chatbot is open */
+
+.ajai-fab.open {
+
+  display: none;
+
+}
+
+
+/* =============================================================================
+   AI TEXT
+============================================================================= */
+
+.ajai-fab-ai {
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+
+  font-size: 21px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  line-height: 1;
+
+}
+
+
+/* =============================================================================
+   CART BADGE
+============================================================================= */
+
+.ajai-fab-badge {
+
+  position: absolute;
+
+  top: -4px;
+  right: -4px;
+
+  min-width: 19px;
+  height: 19px;
+
+  padding: 0 5px;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  background: var(--ajai-danger);
+
+  color: #fff;
+
+  border: 2px solid #fff;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+}
+
+
+/* Show badge */
+
+.ajai-fab-badge.show {
+
+  display: flex;
+
+}
+
+
+/* =============================================================================
+   CHAT PANEL
+============================================================================= */
+
+.ajai-panel {
+
+  position: fixed;
+
+  right: 22px;
+  bottom: 22px;
+
+  z-index: 9999;
+
+  width: 380px;
+
+  max-width: 92vw;
+
+  /*
+    IMPORTANT:
+    Do NOT use fixed height here.
+    Panel will adjust according to content.
+  */
+
+  height: auto;
+
+  /*
+    Maximum height only when content becomes too large.
+  */
+
+  max-height: min(650px, 84vh);
+
+  background: var(--ajai-cream-2);
+
+  border-radius: 22px;
+
+  box-shadow: var(--ajai-shadow);
+
+  display: none;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  font-family:
+    var(--font-body),
+    "Poppins",
+    sans-serif;
+
+  border: 1px solid var(--ajai-border);
+
+}
+
+
+/* Open */
+
+.ajai-panel.open {
+
+  display: flex;
+
+  animation:
+    ajaiPop
+    0.25s
+    ease;
+
+}
+
+
+/* =============================================================================
+   PANEL ANIMATION
+============================================================================= */
+
+@keyframes ajaiPop {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(0.96);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+
+/* =============================================================================
+   HEADER
+============================================================================= */
+
+.ajai-header {
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--ajai-coffee),
+      var(--ajai-espresso)
+    );
+
+  color: #fff;
+
+  padding: 14px 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =============================================================================
+   HEADER AVATAR
+============================================================================= */
+
+.ajai-avatar {
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: var(--ajai-gold);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.15);
+
+}
+
+
+/* Image */
+
+.ajai-avatar img {
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+}
+
+
+/* =============================================================================
+   HEADER TEXT
+============================================================================= */
+
+.ajai-header-text {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+.ajai-header-text .name {
+
+  font-weight: 700;
+
+  font-size: 15px;
+
+  line-height: 1.2;
+
+}
+
+
+.ajai-header-text .status {
+
+  font-size: 11.5px;
+
+  opacity: 0.85;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 2px;
+
+}
+
+
+/* Online dot */
+
+.ajai-header-text .status::before {
+
+  content: "";
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #5fd66b;
+
+  display: inline-block;
+
+  box-shadow:
+    0 0 7px
+    rgba(95, 214, 107, 0.6);
+
+}
+
+
+/* =============================================================================
+   HEADER BUTTONS
+============================================================================= */
+
+.ajai-header-btns {
+
+  display: flex;
+
+  gap: 5px;
+
+}
+
+
+.ajai-icon-btn {
+
+  width: 31px;
+  height: 31px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  color: #fff;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
+}
+
+
+.ajai-icon-btn:hover {
+
+  background:
+    rgba(255, 255, 255, 0.25);
+
+  transform:
+    scale(1.05);
+
+}
+
+
+.ajai-icon-btn:active {
+
+  transform:
+    scale(0.94);
+
+}
+
+
+/* =============================================================================
+   BREADCRUMB
+============================================================================= */
+
+.ajai-crumb {
+
+  padding: 8px 16px;
+
+  font-size: 11.5px;
+
+  color: var(--ajai-muted);
+
+  background: var(--ajai-beige);
+
+  flex-shrink: 0;
+
+  white-space: nowrap;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+
+}
+
+
+.ajai-crumb::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+
+/* =============================================================================
+   CHAT BODY
+============================================================================= */
+
+.ajai-body {
+
+  /*
+    IMPORTANT:
+    This prevents the body from stretching the
+    chatbot to a huge empty height.
+  */
+
+  flex: 0 1 auto;
+
+  min-height: 0;
+
+  max-height: 500px;
+
+  overflow-y: auto;
+
+  padding: 15px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  background: var(--ajai-cream);
+
+  scroll-behavior: smooth;
+
+}
+
+
+/* =============================================================================
+   SCROLLBAR
+============================================================================= */
+
+.ajai-body::-webkit-scrollbar {
+
+  width: 5px;
+
+}
+
+
+.ajai-body::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+
+
+.ajai-body::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(111, 72, 49, 0.25);
+
+  border-radius: 999px;
+
+}
+
+
+.ajai-body::-webkit-scrollbar-thumb:hover {
+
+  background:
+    rgba(111, 72, 49, 0.45);
+
+}
+
+
+/* =============================================================================
+   AI MESSAGE
+============================================================================= */
+
+.ajai-msg {
+
+  background: var(--ajai-cream-2);
+
+  border:
+    1px solid
+    var(--ajai-border);
+
+  border-radius:
+    15px
+    15px
+    15px
+    5px;
+
+  padding: 11px 14px;
+
+  font-size: 13.5px;
+
+  color: var(--ajai-text);
+
+  max-width: 92%;
+
+  line-height: 1.5;
+
+  box-shadow:
+    0 3px 10px
+    rgba(43, 27, 20, 0.04);
+
+  animation:
+    ajaiFadeIn
+    0.2s
+    ease;
+
+}
+
+
+/* =============================================================================
+   MESSAGE ANIMATION
+============================================================================= */
+
+@keyframes ajaiFadeIn {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(7px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+/* =============================================================================
+   USER MESSAGE
+============================================================================= */
+
+.ajai-user-msg {
+
+  align-self: flex-end;
+
+  background: var(--ajai-coffee);
+
+  color: #fff;
+
+  border-radius:
+    15px
+    15px
+    5px
+    15px;
+
+  padding: 9px 13px;
+
+  font-size: 13px;
+
+  max-width: 78%;
+
+  line-height: 1.4;
+
+  animation:
+    ajaiFadeIn
+    0.2s
+    ease;
+
+}
+
+
+/* =============================================================================
+   MESSAGE GROUP
+============================================================================= */
+
+.ajai-message-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  width: 100%;
+
+  animation:
+    ajaiFadeIn
+    0.2s
+    ease;
+
+}
+
+
+/* =============================================================================
+   OPTIONS
+============================================================================= */
+
+.ajai-options {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  padding: 0;
+
+  margin-top: 1px;
+
+  max-width: 96%;
+
+}
+
+
+/* =============================================================================
+   OPTION BUTTON
+============================================================================= */
+
+.ajai-option {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  width: auto;
+
+  min-height: 32px;
+
+  padding: 6px 11px;
+
+  text-align: center;
+
+  border:
+    1px solid
+    rgba(200, 155, 76, 0.35);
+
+  background: #fff;
+
+  color: var(--ajai-text);
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: 11.5px;
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+
+}
+
+
+/* Hover */
+
+.ajai-option:hover {
+
+  background: var(--ajai-gold-light);
+
+  border-color: var(--ajai-gold);
+
+  box-shadow:
+    0 4px 10px
+    rgba(43, 27, 20, 0.10);
+
+  transform:
+    translateY(-1px);
+
+}
+
+
+/* Active */
+
+.ajai-option:active {
+
+  transform:
+    scale(0.96);
+
+}
+
+
+/* =============================================================================
+   OPTION ICON
+============================================================================= */
+
+.ajai-option .emoji {
+
+  font-size: 14px;
+
+  line-height: 1;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =============================================================================
+   OPTION TEXT
+============================================================================= */
+
+.ajai-option .opt-text {
+
+  flex: initial;
+
+  min-width: 0;
+
+}
+
+
+.ajai-option .opt-title {
+
+  font-weight: 600;
+
+}
+
+
+.ajai-option .opt-sub {
+
+  display: none;
+
+}
+
+
+/* =============================================================================
+   OPTION ARROW
+============================================================================= */
+
+.ajai-option .chev {
+
+  color: var(--ajai-muted);
+
+  font-size: 11px;
+
+  margin-left: 1px;
+
+}
+
+
+/* =============================================================================
+   ITEM CARD
+============================================================================= */
+
+.ajai-item-card {
+
+  border:
+    1px solid
+    var(--ajai-border);
+
+  background: var(--ajai-cream-2);
+
+  border-radius: 13px;
+
+  padding: 10px 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  box-shadow:
+    0 3px 10px
+    rgba(43, 27, 20, 0.04);
+
+  animation:
+    ajaiFadeIn
+    0.2s
+    ease;
+
+}
+
+
+/* =============================================================================
+   ITEM INFORMATION
+============================================================================= */
+
+.ajai-item-card .item-info {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+.ajai-item-card .item-name {
+
+  font-weight: 600;
+
+  font-size: 13.5px;
+
+}
+
+
+.ajai-item-card .item-desc {
+
+  font-size: 11.5px;
+
+  color: var(--ajai-muted);
+
+  margin:
+    2px 0 5px;
+
+  line-height: 1.4;
+
+}
+
+
+.ajai-item-card .item-price {
+
+  font-weight: 700;
+
+  color: #a67c34;
+
+  font-size: 13px;
+
+  margin-bottom: 5px;
+
+}
+
+
+/* =============================================================================
+   ADD TO CART
+============================================================================= */
+
+.ajai-add-btn {
+
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--ajai-gold-light),
+      var(--ajai-gold)
+    );
+
+  color: var(--ajai-espresso);
+
+  font-weight: 700;
+
+  font-size: 11.5px;
+
+  padding: 7px 11px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+}
+
+
+.ajai-add-btn:hover {
+
+  box-shadow:
+    0 4px 10px
+    rgba(43, 27, 20, 0.14);
+
+}
+
+
+.ajai-add-btn:active {
+
+  transform:
+    scale(0.95);
+
+}
+
+
+.ajai-add-btn.added {
+
+  background: var(--ajai-success);
+
+  color: #fff;
+
+}
+
+
+/* =============================================================================
+   CART ROW
+============================================================================= */
+
+.ajai-cart-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 13px;
+
+  padding: 4px 0;
+
+  color: var(--ajai-text);
+
+}
+
+
+.ajai-cart-row.total {
+
+  font-weight: 700;
+
+  border-top:
+    1px dashed
+    rgba(0, 0, 0, 0.15);
+
+  margin-top: 6px;
+
+  padding-top: 8px;
+
+}
+
+
+/* =============================================================================
+   LINK BUTTON
+============================================================================= */
+
+.ajai-link-btn {
+
+  display: inline-block;
+
+  margin-top: 4px;
+
+  color: #a67c34;
+
+  font-weight: 600;
+
+  font-size: 12.5px;
+
+  text-decoration: none;
+
+  transition:
+    opacity 0.2s ease;
+
+}
+
+
+.ajai-link-btn:hover {
+
+  opacity: 0.75;
+
+  text-decoration: underline;
+
+}
+
+
+/* =============================================================================
+   FOOTER NAVIGATION
+============================================================================= */
+
+.ajai-footer-nav {
+
+  display: flex;
+
+  gap: 7px;
+
+  padding: 10px 13px;
+
+  background: var(--ajai-cream-2);
+
+  border-top:
+    1px solid
+    var(--ajai-border);
+
+  flex-shrink: 0;
+
+}
+
+
+/* =============================================================================
+   NAVIGATION BUTTON
+============================================================================= */
+
+.ajai-nav-btn {
+
+  flex: 1;
+
+  border:
+    1px solid
+    rgba(0, 0, 0, 0.12);
+
+  background: var(--ajai-beige);
+
+  color: var(--ajai-text);
+
+  font-family: inherit;
+
+  font-weight: 600;
+
+  font-size: 12px;
+
+  padding: 8px 9px;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+
+}
+
+
+.ajai-nav-btn:hover {
+
+  background: var(--ajai-gold-light);
+
+}
+
+
+.ajai-nav-btn:active {
+
+  transform:
+    scale(0.97);
+
+}
+
+
+/* Primary */
+
+.ajai-nav-btn.primary {
+
+  background: var(--ajai-coffee);
+
+  color: #fff;
+
+  border-color: var(--ajai-coffee);
+
+}
+
+
+.ajai-nav-btn.primary:hover {
+
+  background: var(--ajai-espresso);
+
+}
+
+
+/* =============================================================================
+   TYPING INDICATOR
+============================================================================= */
+
+.ajai-typing {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  width: fit-content;
+
+  background: var(--ajai-cream-2);
+
+  border:
+    1px solid
+    var(--ajai-border);
+
+  border-radius:
+    14px
+    14px
+    14px
+    4px;
+
+  padding: 9px 12px;
+
+}
+
+
+.ajai-typing span {
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--ajai-coffee);
+
+  animation:
+    ajaiTyping
+    1.2s
+    infinite
+    ease-in-out;
+
+}
+
+
+.ajai-typing span:nth-child(2) {
+
+  animation-delay: 0.15s;
+
+}
+
+
+.ajai-typing span:nth-child(3) {
+
+  animation-delay: 0.3s;
+
+}
+
+
+@keyframes ajaiTyping {
+
+  0%,
+  60%,
+  100% {
+
+    opacity: 0.35;
+
+    transform:
+      translateY(0);
+
+  }
+
+  30% {
+
+    opacity: 1;
+
+    transform:
+      translateY(-3px);
+
+  }
+
+}
+
+
+/* =============================================================================
+   DISABLED OPTION
+============================================================================= */
+
+.ajai-option:disabled {
+
+  cursor: not-allowed;
+
+  opacity: 0.55;
+
+  transform: none;
+
+  box-shadow: none;
+
+}
+
+
+/* =============================================================================
+   FOCUS ACCESSIBILITY
+============================================================================= */
+
+.ajai-option:focus-visible,
+.ajai-nav-btn:focus-visible,
+.ajai-icon-btn:focus-visible,
+.ajai-fab:focus-visible,
+.ajai-add-btn:focus-visible {
+
+  outline:
+    2px solid
+    var(--ajai-gold);
+
+  outline-offset: 2px;
+
+}
+
+
+/* =============================================================================
+   EMPTY STATE
+============================================================================= */
+
+.ajai-empty {
+
+  text-align: center;
+
+  padding: 25px 15px;
+
+  color: var(--ajai-muted);
+
+  font-size: 13px;
+
+}
+
+
+.ajai-empty-icon {
+
+  font-size: 30px;
+
+  margin-bottom: 8px;
+
+}
+
+
+/* =============================================================================
+   ============================================================================
+   DARK / NIGHT MODE
+   ============================================================================
+============================================================================= */
+
+
+/*
+   These selectors support common dark-mode class names:
+
+   body.dark-mode
+   body.dark
+   body[data-theme="dark"]
+   body.theme-dark
+
+   If your website uses any of these,
+   chatbot automatically switches to dark mode.
+*/
+
+
+/* ---------------------------------------------------------------------------
+   PANEL
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-panel,
+html.dark-mode .ajai-panel,
+body.dark .ajai-panel,
+html.dark .ajai-panel,
+body[data-theme="dark"] .ajai-panel,
+html[data-theme="dark"] .ajai-panel,
+body.theme-dark .ajai-panel,
+html.theme-dark .ajai-panel {
+
+  background: #211812;
+
+  color: #fff;
+
+  border-color:
+    rgba(255, 255, 255, 0.12);
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   BREADCRUMB
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-crumb,
+html.dark-mode .ajai-crumb,
+body.dark .ajai-crumb,
+html.dark .ajai-crumb,
+body[data-theme="dark"] .ajai-crumb,
+html[data-theme="dark"] .ajai-crumb,
+body.theme-dark .ajai-crumb,
+html.theme-dark .ajai-crumb {
+
+  background: #35271f;
+
+  color: #e8d9cc;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   BODY
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-body,
+html.dark-mode .ajai-body,
+body.dark .ajai-body,
+html.dark .ajai-body,
+body[data-theme="dark"] .ajai-body,
+html[data-theme="dark"] .ajai-body,
+body.theme-dark .ajai-body,
+html.theme-dark .ajai-body {
+
+  background: #211812;
+
+  color: #fff;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   AI MESSAGE
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-msg,
+html.dark-mode .ajai-msg,
+body.dark .ajai-msg,
+html.dark .ajai-msg,
+body[data-theme="dark"] .ajai-msg,
+html[data-theme="dark"] .ajai-msg,
+body.theme-dark .ajai-msg,
+html.theme-dark .ajai-msg {
+
+  background: #30231c;
+
+  color: #fff;
+
+  border-color:
+    rgba(255, 255, 255, 0.10);
+
+}
+
+
+/* Make all text inside AI message visible */
+
+body.dark-mode .ajai-msg strong,
+html.dark-mode .ajai-msg strong,
+body.dark .ajai-msg strong,
+html.dark .ajai-msg strong,
+body[data-theme="dark"] .ajai-msg strong,
+html[data-theme="dark"] .ajai-msg strong,
+body.theme-dark .ajai-msg strong,
+html.theme-dark .ajai-msg strong {
+
+  color: #fff;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   USER MESSAGE
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-user-msg,
+html.dark-mode .ajai-user-msg,
+body.dark .ajai-user-msg,
+html.dark .ajai-user-msg,
+body[data-theme="dark"] .ajai-user-msg,
+html[data-theme="dark"] .ajai-user-msg,
+body.theme-dark .ajai-user-msg,
+html.theme-dark .ajai-user-msg {
+
+  background: #6f4831;
+
+  color: #fff;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   OPTIONS
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-option,
+html.dark-mode .ajai-option,
+body.dark .ajai-option,
+html.dark .ajai-option,
+body[data-theme="dark"] .ajai-option,
+html[data-theme="dark"] .ajai-option,
+body.theme-dark .ajai-option,
+html.theme-dark .ajai-option {
+
+  background: #30231c;
+
+  color: #fff;
+
+  border-color:
+    rgba(227, 185, 107, 0.45);
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   OPTION TITLE
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-option .opt-title,
+html.dark-mode .ajai-option .opt-title,
+body.dark .ajai-option .opt-title,
+html.dark .ajai-option .opt-title,
+body[data-theme="dark"] .ajai-option .opt-title,
+html[data-theme="dark"] .ajai-option .opt-title,
+body.theme-dark .ajai-option .opt-title,
+html.theme-dark .ajai-option .opt-title {
+
+  color: #fff;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   OPTION ARROW
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-option .chev,
+html.dark-mode .ajai-option .chev,
+body.dark .ajai-option .chev,
+html.dark .ajai-option .chev,
+body[data-theme="dark"] .ajai-option .chev,
+html[data-theme="dark"] .ajai-option .chev,
+body.theme-dark .ajai-option .chev,
+html.theme-dark .ajai-option .chev {
+
+  color: #e3b96b;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   OPTION HOVER
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-option:hover,
+html.dark-mode .ajai-option:hover,
+body.dark .ajai-option:hover,
+html.dark .ajai-option:hover,
+body[data-theme="dark"] .ajai-option:hover,
+html[data-theme="dark"] .ajai-option:hover,
+body.theme-dark .ajai-option:hover,
+html.theme-dark .ajai-option:hover {
+
+  background: #4a3427;
+
+  color: #fff;
+
+  border-color: #e3b96b;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   ITEM CARD
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-item-card,
+html.dark-mode .ajai-item-card,
+body.dark .ajai-item-card,
+html.dark .ajai-item-card,
+body[data-theme="dark"] .ajai-item-card,
+html[data-theme="dark"] .ajai-item-card,
+body.theme-dark .ajai-item-card,
+html.theme-dark .ajai-item-card {
+
+  background: #30231c;
+
+  color: #fff;
+
+  border-color:
+    rgba(255, 255, 255, 0.10);
+
+}
+
+
+/* Item name */
+
+body.dark-mode .ajai-item-card .item-name,
+html.dark-mode .ajai-item-card .item-name,
+body.dark .ajai-item-card .item-name,
+html.dark .ajai-item-card .item-name,
+body[data-theme="dark"] .ajai-item-card .item-name,
+html[data-theme="dark"] .ajai-item-card .item-name,
+body.theme-dark .ajai-item-card .item-name,
+html.theme-dark .ajai-item-card .item-name {
+
+  color: #fff;
+
+}
+
+
+/* Item description */
+
+body.dark-mode .ajai-item-card .item-desc,
+html.dark-mode .ajai-item-card .item-desc,
+body.dark .ajai-item-card .item-desc,
+html.dark .ajai-item-card .item-desc,
+body[data-theme="dark"] .ajai-item-card .item-desc,
+html[data-theme="dark"] .ajai-item-card .item-desc,
+body.theme-dark .ajai-item-card .item-desc,
+html.theme-dark .ajai-item-card .item-desc {
+
+  color: #d8c9bc;
+
+}
+
+
+/* Item price */
+
+body.dark-mode .ajai-item-card .item-price,
+html.dark-mode .ajai-item-card .item-price,
+body.dark .ajai-item-card .item-price,
+html.dark .ajai-item-card .item-price,
+body[data-theme="dark"] .ajai-item-card .item-price,
+html[data-theme="dark"] .ajai-item-card .item-price,
+body.theme-dark .ajai-item-card .item-price,
+html.theme-dark .ajai-item-card .item-price {
+
+  color: #e3b96b;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   ADD BUTTON
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-add-btn,
+html.dark-mode .ajai-add-btn,
+body.dark .ajai-add-btn,
+html.dark .ajai-add-btn,
+body[data-theme="dark"] .ajai-add-btn,
+html[data-theme="dark"] .ajai-add-btn,
+body.theme-dark .ajai-add-btn,
+html.theme-dark .ajai-add-btn {
+
+  background:
+    linear-gradient(
+      135deg,
+      #e3b96b,
+      #c89b4c
+    );
+
+  color: #211812;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   CART ROW
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-cart-row,
+html.dark-mode .ajai-cart-row,
+body.dark .ajai-cart-row,
+html.dark .ajai-cart-row,
+body[data-theme="dark"] .ajai-cart-row,
+html[data-theme="dark"] .ajai-cart-row,
+body.theme-dark .ajai-cart-row,
+html.theme-dark .ajai-cart-row {
+
+  color: #fff;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   CART TOTAL BORDER
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-cart-row.total,
+html.dark-mode .ajai-cart-row.total,
+body.dark .ajai-cart-row.total,
+html.dark .ajai-cart-row.total,
+body[data-theme="dark"] .ajai-cart-row.total,
+html[data-theme="dark"] .ajai-cart-row.total,
+body.theme-dark .ajai-cart-row.total,
+html.theme-dark .ajai-cart-row.total {
+
+  border-top-color:
+    rgba(255, 255, 255, 0.15);
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   FOOTER
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-footer-nav,
+html.dark-mode .ajai-footer-nav,
+body.dark .ajai-footer-nav,
+html.dark .ajai-footer-nav,
+body[data-theme="dark"] .ajai-footer-nav,
+html[data-theme="dark"] .ajai-footer-nav,
+body.theme-dark .ajai-footer-nav,
+html.theme-dark .ajai-footer-nav {
+
+  background: #211812;
+
+  border-top-color:
+    rgba(255, 255, 255, 0.10);
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   FOOTER BUTTON
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-nav-btn,
+html.dark-mode .ajai-nav-btn,
+body.dark .ajai-nav-btn,
+html.dark .ajai-nav-btn,
+body[data-theme="dark"] .ajai-nav-btn,
+html[data-theme="dark"] .ajai-nav-btn,
+body.theme-dark .ajai-nav-btn,
+html.theme-dark .ajai-nav-btn {
+
+  background: #35271f;
+
+  color: #fff;
+
+  border-color:
+    rgba(255, 255, 255, 0.12);
+
+}
+
+
+body.dark-mode .ajai-nav-btn:hover,
+html.dark-mode .ajai-nav-btn:hover,
+body.dark .ajai-nav-btn:hover,
+html.dark .ajai-nav-btn:hover,
+body[data-theme="dark"] .ajai-nav-btn:hover,
+html[data-theme="dark"] .ajai-nav-btn:hover,
+body.theme-dark .ajai-nav-btn:hover,
+html.theme-dark .ajai-nav-btn:hover {
+
+  background: #4a3427;
+
+}
+
+
+/* Primary button */
+
+body.dark-mode .ajai-nav-btn.primary,
+html.dark-mode .ajai-nav-btn.primary,
+body.dark .ajai-nav-btn.primary,
+html.dark .ajai-nav-btn.primary,
+body[data-theme="dark"] .ajai-nav-btn.primary,
+html[data-theme="dark"] .ajai-nav-btn.primary,
+body.theme-dark .ajai-nav-btn.primary,
+html.theme-dark .ajai-nav-btn.primary {
+
+  background: #6f4831;
+
+  color: #fff;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   TYPING
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-typing,
+html.dark-mode .ajai-typing,
+body.dark .ajai-typing,
+html.dark .ajai-typing,
+body[data-theme="dark"] .ajai-typing,
+html[data-theme="dark"] .ajai-typing,
+body.theme-dark .ajai-typing,
+html.theme-dark .ajai-typing {
+
+  background: #30231c;
+
+  color: #fff;
+
+  border-color:
+    rgba(255, 255, 255, 0.10);
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   EMPTY STATE
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-empty,
+html.dark-mode .ajai-empty,
+body.dark .ajai-empty,
+html.dark .ajai-empty,
+body[data-theme="dark"] .ajai-empty,
+html[data-theme="dark"] .ajai-empty,
+body.theme-dark .ajai-empty,
+html.theme-dark .ajai-empty {
+
+  color: #d8c9bc;
+
+}
+
+
+/* ---------------------------------------------------------------------------
+   DARK SCROLLBAR
+--------------------------------------------------------------------------- */
+
+body.dark-mode .ajai-body::-webkit-scrollbar-thumb,
+html.dark-mode .ajai-body::-webkit-scrollbar-thumb,
+body.dark .ajai-body::-webkit-scrollbar-thumb,
+html.dark .ajai-body::-webkit-scrollbar-thumb,
+body[data-theme="dark"] .ajai-body::-webkit-scrollbar-thumb,
+html[data-theme="dark"] .ajai-body::-webkit-scrollbar-thumb,
+body.theme-dark .ajai-body::-webkit-scrollbar-thumb,
+html.theme-dark .ajai-body::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(227, 185, 107, 0.35);
+
+}
+
+
+/* =============================================================================
+   MOBILE — MAX WIDTH 600px
+============================================================================= */
+
+@media (max-width: 600px) {
+
+
+  /* -------------------------------------------------------------------------
+     FLOATING BUTTON
+  ------------------------------------------------------------------------- */
+
+  .ajai-fab {
+
+    right: 16px;
+
+    bottom: 16px;
+
+    width: 56px;
+    height: 56px;
+
+  }
+
+
+  .ajai-fab-ai {
+
+    font-size: 18px;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     CHAT PANEL
+  ------------------------------------------------------------------------- */
+
+  .ajai-panel {
+
+    right: 3vw;
+
+    bottom: 10px;
+
+    width: 94vw;
+
+    max-width: 94vw;
+
+    /*
+      Content based height
+    */
+
+    height: auto;
+
+    /*
+      Maximum height
+    */
+
+    max-height: 82vh;
+
+    border-radius: 20px;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     CHAT BODY
+  ------------------------------------------------------------------------- */
+
+  .ajai-body {
+
+    max-height:
+      calc(82vh - 120px);
+
+    padding: 12px;
+
+    gap: 10px;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     AI MESSAGE
+  ------------------------------------------------------------------------- */
+
+  .ajai-msg {
+
+    max-width: 94%;
+
+    font-size: 13px;
+
+    padding: 10px 12px;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     USER MESSAGE
+  ------------------------------------------------------------------------- */
+
+  .ajai-user-msg {
+
+    max-width: 82%;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     OPTIONS
+  ------------------------------------------------------------------------- */
+
+  .ajai-option {
+
+    min-height: 31px;
+
+    padding: 6px 10px;
+
+    font-size: 11px;
+
+  }
+
+
+  .ajai-option .emoji {
+
+    font-size: 13px;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     ITEM CARD
+  ------------------------------------------------------------------------- */
+
+  .ajai-item-card {
+
+    padding: 9px 10px;
+
+    gap: 8px;
+
+  }
+
+
+  .ajai-item-card .item-name {
+
+    font-size: 13px;
+
+  }
+
+
+  .ajai-item-card .item-desc {
+
+    font-size: 11px;
+
+  }
+
+
+  .ajai-item-card .item-price {
+
+    font-size: 12px;
+
+  }
+
+
+  .ajai-add-btn {
+
+    font-size: 10.5px;
+
+    padding:
+      6px 9px;
+
+  }
+
+
+  /* -------------------------------------------------------------------------
+     FOOTER
+  ------------------------------------------------------------------------- */
+
+  .ajai-footer-nav {
+
+    padding:
+      8px 10px;
+
+  }
+
+
+  .ajai-nav-btn {
+
+    font-size: 11.5px;
+
+    padding:
+      8px 7px;
+
+  }
+
+}
+
+
+/* =============================================================================
+   VERY SMALL MOBILE — MAX WIDTH 380px
+============================================================================= */
+
+@media (max-width: 380px) {
+
+
+  .ajai-panel {
+
+    right: 2vw;
+
+    width: 96vw;
+
+    max-width: 96vw;
+
+    height: auto;
+
+    max-height: 84vh;
+
+  }
+
+
+  .ajai-fab {
+
+    right: 12px;
+
+    bottom: 12px;
+
+    width: 52px;
+
+    height: 52px;
+
+  }
+
+
+  .ajai-fab-ai {
+
+    font-size: 17px;
+
+  }
+
+
+  .ajai-body {
+
+    padding: 10px;
+
+  }
+
+
+  .ajai-option {
+
+    font-size: 10.5px;
+
+    padding:
+      5px 8px;
+
+  }
+
+
+  .ajai-option .emoji {
+
+    font-size: 12px;
+
+  }
+
+
+  .ajai-msg {
+
+    font-size: 12.5px;
+
+  }
+
+
+  .ajai-user-msg {
+
+    font-size: 12px;
+
+  }
+
+}
+
+
+/* =============================================================================
+   EXTRA SMALL DEVICES — MAX WIDTH 320px
+============================================================================= */
+
+@media (max-width: 320px) {
+
+
+  .ajai-panel {
+
+    right: 1.5vw;
+
+    width: 97vw;
+
+    max-width: 97vw;
+
+  }
+
+
+  .ajai-header {
+
+    padding:
+      12px;
+
+  }
+
+
+  .ajai-avatar {
+
+    width: 36px;
+
+    height: 36px;
+
+  }
+
+
+  .ajai-header-text .name {
+
+    font-size: 14px;
+
+  }
+
+
+  .ajai-header-text .status {
+
+    font-size: 10px;
+
+  }
+
+
+  .ajai-body {
+
+    padding: 9px;
+
+    gap: 8px;
+
+  }
+
+
+  .ajai-options {
+
+    gap: 5px;
+
+  }
+
+
+  .ajai-option {
+
+    font-size: 10px;
+
+    min-height: 29px;
+
+    padding:
+      5px 7px;
+
+  }
+
+
+  .ajai-option .emoji {
+
+    font-size: 11px;
+
+  }
+
+
+  .ajai-footer-nav {
+
+    gap: 5px;
+
+    padding:
+      7px 8px;
+
+  }
+
+
+  .ajai-nav-btn {
+
+    font-size: 10.5px;
+
+    padding:
+      7px 5px;
+
+  }
+
+}
+
+
+/* =============================================================================
+   REDUCED MOTION
+============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+
+  .ajai-panel,
+  .ajai-msg,
+  .ajai-user-msg,
+  .ajai-message-group,
+  .ajai-item-card,
+  .ajai-fab,
+  .ajai-option,
+  .ajai-icon-btn,
+  .ajai-add-btn,
+  .ajai-nav-btn,
+  .ajai-typing span {
+
+    animation: none !important;
+
+    transition: none !important;
+
+  }
+
+}
+
+
+/* =============================================================================
+   END OF AJAY'S AI CSS
+============================================================================= */

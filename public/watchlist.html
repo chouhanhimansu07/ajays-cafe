@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ajay's Cafe Orders</title>
+    <link rel="icon" type="image/png" href="img/logo2.jpg" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+<link rel="stylesheet" href="assets/style.css">
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+<style>
+        
+      /* Hero Section */
+
+      .contact-hero {
+        width: 100%;
+        height: 55vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+          url("img/White Sauce Pasta.jpg");
+
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+      }
+
+      .hero-content {
+        animation: fadeUp 1.5s ease;
+      }
+
+      .contact-hero h1 {
+        color: white;
+        font-size: 75px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7);
+      }
+
+      .contact-hero p {
+        color: #f5f5f5;
+        font-size: 24px;
+        margin-top: 15px;
+      }
+</style>
+  </head>
+
+  <body>
+    <!-- ================= ALERT ================= -->
+
+    <div class="custom-alert" id="alertBox">
+      <i class="bi bi-check-circle-fill"></i>
+      Message
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+
+   <nav class="navbar navbar-expand-lg head">
+    <div class="container-fluid">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="index.html">
+            <img src="img/logo.png" alt="Ajay's Cafe">
+        </a>
+
+        <!-- Right side -->
+        <div class="d-flex align-items-center order-lg-3">
+
+            <button
+                id="themeToggle"
+                class="btn btn-outline-light rounded-pill me-2"
+            >
+                <i class="bi bi-moon-stars-fill"></i>
+            </button>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+         <div class="collapse navbar-collapse justify-content-end" id="menu">
+          <ul class="navbar-nav">
+           <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="bi bi-house-door-fill"></i>
+               <strong>Home</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">
+                <i class="bi bi-cup-hot-fill"></i>
+                <strong>Menu</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="services.html">
+                <i class="bi bi-grid-fill"></i>
+                <strong>Services</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">
+                <i class="bi bi-envelope-fill"></i>
+                <strong>Contact</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="watchlist.html">
+                <i class="bi bi-cart-fill"></i>
+                <strong>Watchlist</strong>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+    </div>
+</nav>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="contact-hero">
+      <div class="hero-content">
+        <h1>Your Orders</h1>
+
+        <p>Fresh Coffee & Delicious Food Waiting For You</p>
+      </div>
+    </section>
+
+    <!-- ================= SUGGESTIONS ================= -->
+
+<div class="title">Add More Items</div>
+<section class="reveal"> 
+    <div class="suggestion-grid">
+      <div class="suggest-card">
+        <img src="img/drink.webp" alt="Drink" loading="lazy" />
+
+        <h3>Drink</h3>
+
+        <p>Drink with enjoyment</p>
+
+        <div class="rating">★★★★★</div>
+
+        <div class="price">₹50</div>
+
+        <div class="text-center mb-4">
+          <button type="button" class="btn-custom" onclick="addMore('Drink', 50)">
+            ADD ITEM
+          </button>
+        </div>
+      </div>
+
+      <div class="suggest-card">
+        <img src="img/French-Fries.jpg" alt="French Fries" loading="lazy" />
+
+        <h3>French Fries</h3>
+
+        <p>Crispy potato fries</p>
+
+        <div class="rating">★★★★☆</div>
+
+        <div class="price">₹140</div>
+
+        <div class="text-center mb-4">
+          <button type="button" class="btn-custom" onclick="addMore('French Fries', 140)">
+            ADD ITEM
+          </button>
+        </div>
+      </div>
+
+      <div class="suggest-card">
+        <img src="img/coff.avif" alt="Cold Coffee" loading="lazy" />
+
+        <h3>Cold Coffee</h3>
+
+        <p>Chilled creamy coffee</p>
+
+        <div class="rating">★★★★★</div>
+
+        <div class="price">₹190</div>
+
+        <div class="text-center mb-4">
+          <button type="button" class="btn-custom" onclick="addMore('Cold Coffee', 190)">
+            ADD ITEM
+          </button>
+        </div>
+      </div>
+
+      <div class="suggest-card">
+        <img src="img/chocolaste-donut.webp" alt="Chocolate Donut" loading="lazy" />
+
+        <h3>Chocolate Donut</h3>
+
+        <p>Sweet chocolate donut</p>
+
+        <div class="rating">★★★★☆</div>
+
+        <div class="price">₹160</div>
+
+        <div class="text-center mb-4">
+          <button type="button" class="btn-custom" onclick="addMore('Chocolate Donut', 160)">
+            ADD ITEM
+          </button>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="reveal"> 
+    <!-- ================= MAIN CARD ================= -->
+
+    <div class="main-card">
+      <div class="section-title">Cart & Billing</div>
+
+      <div id="cartItems"></div>
+
+      <!-- BILL -->
+
+      <div class="bill-box">
+        <div class="bill-row">
+          <span>Items Total</span>
+          <span id="itemTotal">₹0</span>
+        </div>
+
+        <div class="bill-row">
+          <span>GST (5%)</span>
+          <span id="gst">₹0</span>
+        </div>
+
+        <div class="bill-row">
+          <span>Delivery Charge</span>
+          <span>₹40</span>
+        </div>
+
+        <div class="bill-row grand">
+          <span>Final Total</span>
+          <span id="finalTotal">₹0</span>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="button" class="btn-custom" onclick="openForm()">PLACE ORDER</button>
+        </div>
+      </div>
+    </div>
+    </section>
+    <section class="reveal"> 
+      <!-- ================= CUSTOMER DETAILS ================= -->
+
+      <div class="customer-box" id="customerBox">
+        <h2 class="text-center mb-4 customer-title">Customer Details</h2>
+
+        <input
+          type="text"
+          id="customerName"
+          class="form-control"
+          placeholder="Enter Full Name"
+        />
+
+        <input
+          type="tel"
+          id="customerPhone"
+          class="form-control"
+          placeholder="Enter Mobile Number"
+        />
+
+        <textarea
+          id="customerAddress"
+          class="form-control"
+          rows="4"
+          placeholder="Enter Delivery Address"
+        ></textarea>
+
+        <select class="form-control" id="paymentMethod">
+          <option value="">Select Payment Method</option>
+
+          <option>Cash On Delivery</option>
+
+          <option>UPI Payment</option>
+
+          <option>Credit / Debit Card</option>
+        </select>
+
+        <h4 class="text-center mt-4">
+          Final Amount :
+          <span id="popupTotal">₹0</span>
+        </h4>
+
+        <div class="text-center mt-4">
+          <button type="button" class="btn-custom" onclick="confirmOrder()">
+            CONFIRM ORDER
+          </button>
+        </div>
+      </div>
+    </section>
+<section class="reveal"> 
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="cafe-footer" aria-label="Ajay's Cafe footer">
+      <div class="cafe-footer-inner">
+        <!-- Left: Logo + Description -->
+        <div class="footer-col">
+          <img class="footer-logo" src="img/logo.png" alt="Ajay's Cafe" />
+          <div class="footer-title">Ajay's Cafe</div>
+          <p class="footer-desc">
+            Premium coffee, warm ambience, and unforgettable moments.
+            <br />
+            Crafted for coffee lovers—one happy sip at a time.
+          </p>
+        </div>
+
+        <!-- Center: Rating + Reviews -->
+        <div class="footer-col">
+          <div class="footer-rating">⭐ Overall Rating <span>4.8 / 5</span></div>
+
+          <div class="review">
+            <div class="review-name">Rahul Verma</div>
+            <span class="review-stars">★★★★★</span>
+            <p class="review-text">Excellent coffee and amazing ambience. The place feels premium and welcoming.</p>
+          </div>
+
+          <div class="review">
+            <div class="review-name">Neha Sharma</div>
+            <span class="review-stars">★★★★★</span>
+            <p class="review-text">Best cafe experience with fast service. Loved the taste and presentation.</p>
+          </div>
+        </div>
+
+        <!-- Right: Visitors + Social -->
+        <div class="footer-col">
+          <div class="visitor-wrap">
+            <div class="visitor-label">Live Visitors</div>
+            <div class="visitor-count"><span id="visitorCount">0</span></div>
+          </div>
+
+          <div class="social-row" aria-label="Social media links">
+            <a class="social-icon" href="https://www.facebook.com/" aria-label="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a class="social-icon" href="https://www.instagram.com/" aria-label="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a class="social-icon" href="https://x.com/" aria-label="X (Twitter)">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a class="social-icon" href="https://www.youtube.com/"  aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+
+            <a class="social-icon" href="https://wa.me/919558069919" aria-label="WhatsApp">
+              <i class="bi bi-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cafe-footer-bottom">
+         © 2026 <strong>Ajay's Cafe</strong> |
+            All Rights Reserved |
+            Designed & Developed by <strong>Himansu</strong>
+      </div>
+    </footer>
+</section> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/script.js"></script>
+  </body>
+</html>

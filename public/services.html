@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ajay's Cafe Services</title>
+    <link rel="icon" type="image/png" href="img/logo2.jpg" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+<link rel="stylesheet" href="assets/style.css">
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+<style>
+        /* Hero Section */
+
+      .contact-hero {
+        width: 100%;
+        height: 55vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+          url("img/coff.avif");
+
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+      }
+
+      .hero-content {
+        animation: fadeUp 1.5s ease;
+      }
+
+      .contact-hero h1 {
+        color: white;
+        font-size: 75px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7);
+      }
+
+      .contact-hero p {
+        color: #f5f5f5;
+        font-size: 24px;
+        margin-top: 15px;
+      }
+</style>
+  </head>
+
+  <body>
+    <!-- ================= ALERT ================= -->
+
+    <div class="custom-alert" id="customAlert">
+      <i class="bi bi-check-circle-fill"></i>
+
+      <span id="alertText"> Success Message </span>
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+
+  <nav class="navbar navbar-expand-lg head">
+    <div class="container-fluid">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="index.html">
+            <img src="img/logo.png" alt="Ajay's Cafe">
+        </a>
+
+        <!-- Right side -->
+        <div class="d-flex align-items-center order-lg-3">
+
+            <button
+                id="themeToggle"
+                class="btn btn-outline-light rounded-pill me-2"
+            >
+                <i class="bi bi-moon-stars-fill"></i>
+            </button>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+         <div class="collapse navbar-collapse justify-content-end" id="menu">
+          <ul class="navbar-nav">
+           <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="bi bi-house-door-fill"></i>
+                <strong>Home</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">
+                <i class="bi bi-cup-hot-fill"></i>
+                <strong>Menu</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="services.html">
+                <i class="bi bi-grid-fill"></i>
+                <strong>Services</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">
+                <i class="bi bi-envelope-fill"></i>
+                <strong>Contact</strong>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="watchlist.html">
+                <i class="bi bi-cart-fill"></i>
+                <strong>Watchlist</strong>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+    </div>
+</nav>
+    <!-- ================= BANNER ================= -->
+
+      <section class="contact-hero">
+      <div class="hero-content">
+        <h1>Our Services</h1>
+
+        <p>Delicious food, exceptional service, unforgettable moments.</p>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+
+    <div class="title">What We Offer</div>
+<section class="reveal"> 
+    <div class="service-grid">
+      <div class="service-card">
+        <img src="img/del.jpg" alt="Online Delivery" loading="lazy" />
+
+        <h3>Online Delivery</h3>
+
+        <p>Fast and fresh delivery to your doorstep.</p>
+
+        <button type="button" class="btn-custom" onclick="window.location.href = 'menu.html'">
+          Order Now
+        </button>
+      </div>
+
+      <div class="service-card">
+        <img src="img/tbl.avif" alt="Table Booking" loading="lazy" />
+
+        <h3>Table Booking</h3>
+
+        <p>Reserve your table easily.</p>
+
+        <button
+          type="button"
+          class="btn-custom"
+          onclick="
+            document
+              .getElementById('table-booking')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+        >
+          Book Table
+        </button>
+      </div>
+
+      <div class="service-card">
+        <img src="img/Venus.avif" alt="Venue Booking" loading="lazy" />
+
+        <h3>Venue Booking</h3>
+
+        <p>Book café for events & parties.</p>
+
+        <button
+          type="button"
+          class="btn-custom"
+          onclick="
+            document
+              .getElementById('venue-booking')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+        >
+          Book Venue
+        </button>
+      </div>
+    </div>
+</section>
+<section class="reveal"> 
+    <!-- ================= TABLE BOOKING ================= -->
+
+    <div class="booking-box" id="table-booking">
+      <h2>Table Booking</h2>
+
+      <div class="row">
+        <div class="col-md-6">
+          <input
+            type="text"
+            id="tableName"
+            class="form-control"
+            placeholder="Enter Name"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            type="tel"
+            id="tablePhone"
+            class="form-control"
+            placeholder="Enter Phone Number"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <input type="date" id="tableDate" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+          <input type="time" id="tableTime" class="form-control" />
+        </div>
+      </div>
+
+     <select class="form-select" id="tableGuests">
+        <option value="">Select Guests</option>
+        <option>2</option>
+        <option>4</option>
+        <option>6</option>
+        <option>8</option>
+      </select>
+
+      <center>
+        <button type="button" class="btn-custom" onclick="validateTableBooking()">
+          Confirm Booking
+        </button>
+      </center>
+    </div>
+</section>
+<section class="reveal"> 
+
+    <!-- ================= VENUE BOOKING ================= -->
+
+    <div class="booking-box" id="venue-booking">
+      <h2>Venue Booking</h2>
+
+      <div class="row">
+        <div class="col-md-6">
+          <input
+            type="text"
+            id="venueName"
+            class="form-control"
+            placeholder="Enter Name"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            type="email"
+            id="venueEmail"
+            class="form-control"
+            placeholder="Enter Email"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <input type="date" id="venueDate" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            type="number"
+            id="venueGuests"
+            class="form-control"
+            placeholder="Number Of Guests"
+          />
+        </div>
+      </div>
+
+      <select class="form-select" id="eventType">
+        <option value="">Select Event Type</option>
+        <option>Birthday</option>
+        <option>Meeting</option>
+        <option>Party</option>
+        <option>Corporate Event</option>
+      </select>
+
+      <textarea
+        rows="4"
+        id="venueRequirement"
+        class="form-control"
+        placeholder="Enter Requirements"
+      ></textarea>
+
+      <center>
+        <button type="button" class="btn-custom" onclick="validateVenueBooking()">
+          Confirm Venue
+        </button>
+      </center>
+    </div>
+</section>
+<section class="reveal"> 
+    <!-- ================= FEATURES ================= -->
+
+    <div class="feature-section">
+      <div class="title">Why Choose Us</div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>Fresh Coffee</h4>
+          <p>Premium beans with rich taste and aroma.</p>
+        </div>
+
+        <div class="feature-card">
+          <h4>Fast Delivery</h4>
+          <p>Quick and safe delivery at your doorstep.</p>
+        </div>
+
+        <div class="feature-card">
+          <h4>Luxury Ambience</h4>
+          <p>Comfortable and premium café experience.</p>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="reveal"> 
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="cafe-footer" aria-label="Ajay's Cafe footer">
+      <div class="cafe-footer-inner">
+        <!-- Left: Logo + Description -->
+        <div class="footer-col">
+          <img class="footer-logo" src="img/logo.png" alt="Ajay's Cafe" />
+          <div class="footer-title">Ajay's Cafe</div>
+          <p class="footer-desc">
+            Premium coffee, warm ambience, and unforgettable moments.
+            <br />
+            Crafted for coffee lovers—one happy sip at a time.
+          </p>
+        </div>
+
+        <!-- Center: Rating + Reviews -->
+        <div class="footer-col">
+          <div class="footer-rating">⭐ Overall Rating <span>4.8 / 5</span></div>
+
+          <div class="review">
+            <div class="review-name">Rahul Verma</div>
+            <span class="review-stars">★★★★★</span>
+            <p class="review-text">Excellent coffee and amazing ambience. The place feels premium and welcoming.</p>
+          </div>
+
+          <div class="review">
+            <div class="review-name">Neha Sharma</div>
+            <span class="review-stars">★★★★★</span>
+            <p class="review-text">Best cafe experience with fast service. Loved the taste and presentation.</p>
+          </div>
+        </div>
+
+        <!-- Right: Visitors + Social -->
+        <div class="footer-col">
+          <div class="visitor-wrap">
+            <div class="visitor-label">Live Visitors</div>
+            <div class="visitor-count"><span id="visitorCount">0</span></div>
+          </div>
+
+          <div class="social-row" aria-label="Social media links">
+            <a class="social-icon" href="https://www.facebook.com/" aria-label="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a class="social-icon" href="https://www.instagram.com/" aria-label="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a class="social-icon" href="https://x.com/" aria-label="X (Twitter)">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a class="social-icon" href="https://www.youtube.com/"  aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+
+            <a class="social-icon" href="https://wa.me/919558069919" aria-label="WhatsApp">
+              <i class="bi bi-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cafe-footer-bottom">
+        © 2026 <strong>Ajay's Cafe</strong> |
+            All Rights Reserved |
+            Designed & Developed by <strong>Himansu</strong>
+      </div>
+    </footer>
+
+</section>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/script.js"></script>
+</body>
+</html>
